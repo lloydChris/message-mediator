@@ -36,6 +36,13 @@ Represents one or many pieces of business logic that has some criteria for what 
 #### Other Business Logic
 The represents any other business logic that needs to be executed on the email.  Any Results it returns will also be the responsibility of the Message Mediator to interpret and act on.  For example the Message Mediator would know what results need to be logged or how to chain together discreet business logic pieces if the are dependant on each other.
 
+#### Pipeline Logic
+Another subset of general business logic, this module or service will analyze the email and provide sending pipeline info.  The Message Mediator knows how to map the response of this service, to a specific pipeline.
 
 #### High Availability and Performance Concerns
 Depending on the nature of the business logic, it could be contained in a separate code class, package, module, or API.  The case of evaluating emails a DNM (do not market) list would be a likely candidate for a separate API as it would potentially be a third parties data that needs to be checked.  Scaling these items would of course be depending on thier implementation.  If it is just a code module, then expanding the resources available to the mediator would of course address some issues.  In the case of an API, the inherent network latency would make running logic in parallel where possible very important.
+
+### Sending Pipelines
+This represents the services that is actually responsible for sending an email.  The responsibility of the Message Mediator is to map the incoming message to a pipeline and also know how to map that message to the correct interface for the pipeline.  That mapping would probably take the form of a simple mapping class.  In this way, we contain all interfacing logic inside the mediator class, and can easily plug in new sending pipelines, regardless of their interface, and add the mapping here.
+
+Depending on the nature and complexity of the interface mapping to the different pipelines, there is a design alternative.  One would be to implement the Facade design pattern as a wrapper around the sending pipelines.  In this, way we could standardize the communication leaving the Message Mediator and contain the pipeline specific mapping logic within each pipeline specific Facade.
