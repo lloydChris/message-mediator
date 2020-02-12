@@ -42,8 +42,9 @@ func main() {
 
 	//Subscribe to queue
 	//TODO: find queue reading library based on what queuing service is chosen
+	//TODO: parse queue message into email object
 
-	//call function on message read
+	//mocked email for demonstration
 	inboundEmail := Email{
 		From: "some@wildbit.com",
 		To:   "other@wildbit.com",
