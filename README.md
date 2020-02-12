@@ -1,6 +1,8 @@
 # message-mediator
 Design and stub implementation of a message mediator service
 
+Development requirements are to have Go installed on your machine: https://golang.org/doc/install
+
 ## Overall architecture:
 ![UML](https://img.techpowerup.org/200212/untitled-diagram.jpg)
 
